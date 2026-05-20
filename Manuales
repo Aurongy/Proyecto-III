@@ -1,0 +1,523 @@
+# Manual de Usuario y Técnico
+
+## Proyecto III – Matriz Ortogonal de Vehículos
+
+---
+
+# Información General
+
+**Proyecto:** Sistema de Gestión de Vehículos con Matriz Ortogonal
+**Lenguaje:** Java
+**Paradigma:** Programación Orientada a Objetos
+**Estructura de Datos Principal:** Lista/Matriz Ortogonal
+
+---
+
+# Objetivo del Proyecto
+
+El objetivo del proyecto es implementar una estructura de datos dinámica tipo matriz ortogonal para almacenar vehículos en posiciones específicas de una matriz bidimensional.
+
+Cada vehículo se almacena mediante nodos enlazados horizontal y verticalmente, permitiendo:
+
+* Insertar vehículos
+* Buscar vehículos
+* Eliminar vehículos
+* Mostrar todos los registros
+* Validar placas y posiciones
+
+---
+
+# Manual de Usuario
+
+## Descripción del Sistema
+
+El sistema funciona mediante un menú interactivo en consola donde el usuario puede administrar vehículos dentro de una matriz ortogonal.
+
+Cada vehículo contiene la siguiente información:
+
+* Placa
+* Color
+* Línea
+* Modelo
+* Propietario
+* Posición (fila y columna)
+
+---
+
+# Requisitos del Sistema
+
+## Software Necesario
+
+* Java JDK 17 o superior
+* IntelliJ IDEA / VS Code / NetBeans
+
+---
+
+# Ejecución del Programa
+
+## Paso 1
+
+Abrir el proyecto en el IDE.
+
+## Paso 2
+
+Ejecutar la clase:
+
+```java
+Main.java
+```
+
+## Paso 3
+
+El sistema mostrará el siguiente menú:
+
+```text
+=== MENU ===
+1. Insertar
+2. Buscar
+3. Eliminar
+4. Mostrar
+5. Salir
+```
+
+---
+
+# Funcionalidades del Sistema
+
+# 1. Insertar Vehículo
+
+Permite registrar un vehículo en una posición específica de la matriz.
+
+## Datos solicitados
+
+* Fila
+* Columna
+* Placa
+* Color
+* Línea
+* Modelo
+* Propietario
+
+## Validaciones
+
+El sistema valida:
+
+* Que la fila sea positiva
+* Que la columna sea positiva
+* Que la placa tenga formato válido
+* Que la placa no exista repetida
+* Que la posición no esté ocupada
+
+## Ejemplo
+
+```text
+Fila: 1
+Columna: 2
+Placa: P123ABC
+Color: Negro
+Linea: Toyota
+Modelo: 2022
+Propietario: Juan Perez
+```
+
+---
+
+# 2. Buscar Vehículo
+
+Permite buscar vehículos por cualquier dato almacenado.
+
+## Búsquedas permitidas
+
+* Placa
+* Color
+* Línea
+* Modelo
+* Propietario
+
+## Ejemplo
+
+```text
+Buscar: Toyota
+```
+
+Resultado:
+
+```text
+[Fila=1, Columna=2, Placa=P123ABC]
+```
+
+---
+
+# 3. Eliminar Vehículo
+
+Elimina un vehículo utilizando su placa.
+
+## Ejemplo
+
+```text
+Placa a eliminar: P123ABC
+```
+
+Resultado:
+
+```text
+Eliminado correctamente
+```
+
+---
+
+# 4. Mostrar Vehículos
+
+Muestra todos los vehículos almacenados en la matriz ortogonal.
+
+---
+
+# 5. Salir
+
+Finaliza la ejecución del sistema.
+
+---
+
+# Validación de Placas
+
+El sistema implementa validaciones para evitar formatos inválidos.
+
+## Reglas implementadas
+
+* Debe iniciar con una letra
+* Debe contener números
+* Longitud mínima: 6 caracteres
+* Longitud máxima: 8 caracteres
+* No se permiten símbolos especiales
+
+## Ejemplos válidos
+
+```text
+P123ABC
+A4567
+M890XYZ
+```
+
+## Ejemplos inválidos
+
+```text
+123ABC
+@@P123
+ABCD
+```
+
+---
+
+# Documentación Técnica
+
+# Arquitectura del Proyecto
+
+El sistema está dividido en las siguientes clases:
+
+| Clase           | Función                         |
+| --------------- | ------------------------------- |
+| Main            | Control del menú y validaciones |
+| MatrizVehiculos | Manejo de la matriz ortogonal   |
+| VehiculoNodo    | Representación de cada vehículo |
+| NodoCabecera    | Cabeceras de filas y columnas   |
+
+---
+
+# Explicación de la Estructura Ortogonal
+
+La matriz ortogonal es una estructura de datos bidimensional dinámica.
+
+Cada nodo puede conectarse:
+
+* Horizontalmente
+* Verticalmente
+
+Esto permite recorrer la matriz tanto por filas como por columnas.
+
+---
+
+# Clase Main
+
+## Responsabilidad
+
+La clase `Main` controla:
+
+* El menú principal
+* Entrada de datos
+* Validaciones
+* Comunicación con la matriz
+
+---
+
+## Método main()
+
+### Función
+
+Controla el flujo principal del programa.
+
+### Funciones realizadas
+
+* Muestra el menú
+* Lee opciones
+* Ejecuta operaciones
+* Valida entradas del usuario
+
+---
+
+## Método validarPlaca()
+
+```java
+public static boolean validarPlaca(String placa)
+```
+
+### Función
+
+Verifica que la placa ingresada tenga un formato correcto.
+
+### Validaciones realizadas
+
+* No permite valores nulos
+* Convierte a mayúsculas
+* Verifica longitud
+* Verifica que inicie con letra
+* Verifica presencia de números
+* No permite símbolos
+
+---
+
+# Clase MatrizVehiculos
+
+## Responsabilidad
+
+Es la clase principal de la estructura ortogonal.
+
+Administra:
+
+* Inserciones
+* Búsquedas
+* Eliminaciones
+* Recorridos
+* Validaciones internas
+
+---
+
+# Variables Principales
+
+```java
+private NodoCabecera filas;
+private NodoCabecera columnas;
+```
+
+## Función
+
+Almacenan las cabeceras de filas y columnas de la matriz.
+
+---
+
+# Método insertar()
+
+```java
+public void insertar(int fila, int columna,
+                     String placa, String color,
+                     String linea, String modelo,
+                     String propietario)
+```
+
+## Función
+
+Inserta un nuevo vehículo dentro de la matriz ortogonal.
+
+## Proceso
+
+1. Verifica placas duplicadas
+2. Verifica posiciones ocupadas
+3. Obtiene cabeceras
+4. Crea el nodo
+5. Inserta horizontalmente
+6. Inserta verticalmente
+
+---
+
+# Inserción Horizontal
+
+La inserción horizontal enlaza nodos por columnas.
+
+```java
+actual = actual.getDerecha();
+```
+
+Permite recorrer la fila de izquierda a derecha.
+
+---
+
+# Inserción Vertical
+
+La inserción vertical enlaza nodos por filas.
+
+```java
+actual = actual.getAbajo();
+```
+
+Permite recorrer la columna de arriba hacia abajo.
+
+---
+
+# Método buscar()
+
+```java
+public void buscar(String valor)
+```
+
+## Función
+
+Busca coincidencias utilizando cualquier atributo del vehículo.
+
+## Atributos comparados
+
+* Placa
+* Color
+* Línea
+* Modelo
+* Propietario
+
+## Recorrido
+
+El recorrido se realiza fila por fila.
+
+---
+
+# Método eliminar()
+
+```java
+public void eliminar(String placa)
+```
+
+## Función
+
+Elimina un vehículo utilizando la placa como identificador.
+
+## Proceso
+
+1. Busca el nodo
+2. Desconecta horizontalmente
+3. Desconecta verticalmente
+4. Actualiza referencias
+
+---
+
+# Método mostrar()
+
+```java
+public void mostrar()
+```
+
+## Función
+
+Recorre toda la matriz mostrando los vehículos almacenados.
+
+---
+
+# Método existePlaca()
+
+```java
+private boolean existePlaca(String placa)
+```
+
+## Función
+
+Verifica si una placa ya se encuentra almacenada.
+
+---
+
+# Método existePosicion()
+
+```java
+private boolean existePosicion(int fila, int columna)
+```
+
+## Función
+
+Verifica si ya existe un vehículo en una posición específica.
+
+---
+
+# Clase VehiculoNodo
+
+## Responsabilidad
+
+Representa cada vehículo dentro de la matriz.
+
+Cada nodo almacena:
+
+* Información del vehículo
+* Posición
+* Referencias de enlaces
+
+---
+
+# Estructura del Nodo
+
+```java
+VehiculoNodo derecha;
+VehiculoNodo abajo;
+```
+
+## Explicación
+
+* `derecha` conecta nodos de la misma fila
+* `abajo` conecta nodos de la misma columna
+
+---
+
+# Métodos Importantes de VehiculoNodo
+
+| Método        | Función                |
+| ------------- | ---------------------- |
+| getDerecha()  | Obtiene nodo derecho   |
+| setDerecha()  | Asigna nodo derecho    |
+| getAbajo()    | Obtiene nodo inferior  |
+| setAbajo()    | Asigna nodo inferior   |
+| coincideCon() | Verifica coincidencias |
+| esPlaca()     | Compara placas         |
+
+---
+
+# Clase NodoCabecera
+
+## Responsabilidad
+
+Representa las cabeceras de filas y columnas.
+
+Cada cabecera almacena:
+
+* Índice de fila o columna
+* Referencia al primer nodo
+* Referencia al siguiente encabezado
+
+---
+
+# Ventajas de la Matriz Ortogonal
+
+* Uso eficiente de memoria
+* Inserciones dinámicas
+* Recorridos bidimensionales
+* No requiere tamaño fijo
+* Ideal para matrices dispersas
+
+---
+
+# Desventajas
+
+* Mayor complejidad
+* Recorridos más lentos que un arreglo
+* Mayor cantidad de referencias
+
+---
+
+# Conclusiones
+
+El proyecto implementa correctamente una estructura ortogonal dinámica utilizando Programación Orientada a Objetos en Java.
+
+La solución permite administrar vehículos mediante enlaces horizontales y verticales, optimizando el uso de memoria y demostrando el funcionamiento práctico de estructuras de datos bidimensionales.
+
+---
